@@ -13,6 +13,7 @@ Template de présentation web conforme au **Design System de l'État (DSFR)**.
 - ✅ **Markdown simple** — Écrivez vos slides en `.md`
 - ✅ **Style DSFR** — Conforme au Design System de l'État
 - ✅ **Déploiement auto** — GitHub Pages en un push
+- ✅ **Export PDF** — Bouton sur la dernière slide
 - ✅ **Navigation clavier** — Flèches, Espace, Home, End, 1-9
 - ✅ **Responsive** — Desktop et tablette
 - ✅ **Accessible** — Navigation clavier, ARIA
@@ -27,8 +28,11 @@ Cliquez sur **"Use this template"** sur GitHub ou forkez ce repo.
 
 Activez GitHub Pages dans les settings de votre repo :
 1. Settings → Pages
-2. Source : **GitHub Actions**
-3. Push sur `main` → déploiement automatique
+2. Source : sélectionnez **GitHub Actions**
+3. **Ne créez pas de nouveau workflow** — le fichier `deploy.yml` est déjà inclus dans le repo et se lancera automatiquement
+4. Push sur `main` → déploiement automatique
+
+> ⚠️ **Erreur fréquente** : ne pas ajouter de workflow GitHub Pages (Jekyll, Static, etc.) depuis l'interface GitHub. Le repo contient déjà le workflow nécessaire (`.github/workflows/deploy.yml`). Ajouter un second workflow crée un conflit de déploiement et la page restera blanche.
 
 ### 3. Éditer `slides.md` (à la racine du projet)
 
@@ -59,12 +63,12 @@ Contenu de votre première slide...
 Autre contenu...
 ```
 
-### Votre présentation est en ligne 
+### Votre présentation est en ligne
 URL : https://votre-nom-d-utilisateur.github.io/nom-de-votre-repo/
 
 ## Format Markdown
 
-Voir [`FORMAT.md`](FORMAT.md) pour la documentation complète.
+Le fichier `slides.md` contient la documentation complète avec tous les exemples de syntaxe.
 
 ### Structure de base
 
@@ -96,6 +100,22 @@ Contenu...         → Paragraphes, listes, etc.
 | `Home` | Première slide |
 | `End` | Dernière slide |
 | `1-9` | Aller à la slide N |
+
+## Export PDF
+
+Pour exporter votre présentation en PDF :
+
+```bash
+# Terminal 1 : lancer le serveur
+npm run dev
+
+# Terminal 2 : générer le PDF
+npm run pdf
+```
+
+Le fichier `presentation.pdf` est généré à la racine du projet.
+
+Le script Puppeteer capture chaque slide en 1280x720 et les compile en PDF. La navigation et la barre de progression sont automatiquement masquées.
 
 ## Développement local
 
